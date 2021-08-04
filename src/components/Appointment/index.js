@@ -6,9 +6,6 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 
-//const classNames = require('classnames');
-
-
 export default function Appointment(props) {
 
   return (
@@ -17,13 +14,16 @@ export default function Appointment(props) {
       {props.interview && (
        <Fragment>
          <Show 
+          key={props.id}
           student={props.interview.student} 
           interviewer={props.interview.interviewer}
         />
        </Fragment>)}
       {!props.interview && (
        <Fragment>
-         <Empty onClick={"onAdd"}/>
+         <Empty 
+          key={props.id}
+          onClick={"onAdd"}/>
        </Fragment>)}
     </article>
   );
