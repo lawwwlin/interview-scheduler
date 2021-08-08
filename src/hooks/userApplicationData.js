@@ -20,6 +20,24 @@ export default function useApplicationData() {
 
   const setDay = day => setState({ ...state, day });
 
+  const updateSpots = (state, day) => {
+    const currentDay = day || state.day;
+    const currentDayObj = state.days.find(obj => obj.name === currentDay);
+    const currentDayObjIndex = state.days.findIndex(obj => obj.name === currentDay);
+    const appointmentIds = currentDayObj.appointments;
+    // if the interview is null then there is a spot
+    const freeSpots = appointmentIds.filter(id => !state.appointments[id].interview);
+    const totalSpots = freeSpots.length; 
+
+    const updatedState = {...state}
+    updatedState.days = [...state.days]
+    const updatedDay = {...currentDayObj}
+    updatedDay.spots = totalSpots;
+    updatedState.days[currentDayObjIndex] = updatedDay;
+
+    return updatedState;
+  };
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -31,18 +49,14 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    return axios.put(`/api/appointments/${id}`, {
-      interview: { ...interview }
-    }).then((response) => {
-      setState({
-        ...state,
-        appointments
-      });
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => {
+        setState(prev => ({...prev, appointments}))
+        setState(prev => updateSpots({...prev, appointments}));
     });
   };
 
   function cancelInterview(id) {
-    console.log('cancel interview', id, state);
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -53,13 +67,10 @@ export default function useApplicationData() {
       [id]: appointment
     };
     
-    return axios.delete(`/api/appointments/${id}`, {
-      interview: null 
-    }).then((response) => {
-      setState({
-        ...state,
-        appointments
-      });
+    return axios.delete(`/api/appointments/${id}`)
+      .then(() => {
+      setState(prev => ({...prev, appointments}))
+      setState(prev => updateSpots({...prev, appointments}));
     });
   };
 

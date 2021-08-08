@@ -25,7 +25,7 @@ export function getInterviewersForDay(state, day) {
 
 export function getInterview(state, interview) {
   const targetInterview = {};
-  if (!interview || !interview.student || !interview.interviewer) {
+  if (!interview) {
     return null;
   }
   targetInterview.student = interview.student;

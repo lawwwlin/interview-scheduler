@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
+import React from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
@@ -17,8 +15,10 @@ export default function Application(props) {
   } = useApplicationData();
 
   const interviewers = getInterviewersForDay(state, state.day);
+
+  const appointments = getAppointmentsForDay(state, state.day);
   
-  const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
+  const appointmentList = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     
     return (
@@ -57,7 +57,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-          {appointments}
+          {appointmentList}
           <Appointment key="last" time="5pm" />
       </section>
     </main>
