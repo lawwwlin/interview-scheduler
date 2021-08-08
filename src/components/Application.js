@@ -44,12 +44,7 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
-
-    axios.put(`/api/appointments/${id}`, {
+    return axios.put(`/api/appointments/${id}`, {
       interview: { ...interview }
     }).then((response) => {
       setState({
@@ -71,12 +66,7 @@ export default function Application(props) {
       [id]: appointment
     };
     
-    setState({
-      ...state,
-      appointments
-    });
-    
-    axios.delete(`/api/appointments/${id}`, {
+    return axios.delete(`/api/appointments/${id}`, {
       interview: null 
     }).then((response) => {
       setState({
