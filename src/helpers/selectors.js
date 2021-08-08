@@ -13,16 +13,12 @@ export function getAppointmentsForDay(state, day) {
 
 export function getInterviewersForDay(state, day) {
   const result = [];
-  if (!state.days) {
+  const targetDay = state.days.find(obj => obj.name === day);
+  if (!state.days || !targetDay) {
     return result;
   }
-  const appointments = getAppointmentsForDay(state, day);
-  // appointments is list of appointment objects
-  for (const appointment of appointments) {
-    if (appointment.interview) {
-      const interviewerId = appointment.interview.interviewer;
-      result.push(state.interviewers[interviewerId]);
-    }
+  for (const interviewerId of targetDay.interviewers) {
+    result.push(state.interviewers[interviewerId]);
   }
   return result;
 }

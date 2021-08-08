@@ -8,14 +8,16 @@ import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../helpers/selectors";
 
 export default function Application(props) {
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {}
   });
 
-  
   const setDay = day => setState({ ...state, day });
+  
+  console.log('line 20 state', state)
   
   useEffect(() => {
     Promise.all([
@@ -26,20 +28,76 @@ export default function Application(props) {
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
-  
+
   const interviewers = getInterviewersForDay(state, state.day);
+  console.log("getinterviewersforday", interviewers)
   const appointments = getAppointmentsForDay(state, state.day);
+  
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({
+      ...state,
+      appointments
+    });
+
+    axios.put(`/api/appointments/${id}`, {
+      interview: { ...interview }
+    }).then((response) => {
+      setState({
+        ...state,
+        appointments
+      });
+    });
+  };
+
+  function cancelInterview(id) {
+    console.log('cancel interview', id, state);
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    setState({
+      ...state,
+      appointments
+    });
+    
+    axios.delete(`/api/appointments/${id}`, {
+      interview: null 
+    }).then((response) => {
+      setState({
+        ...state,
+        appointments
+      });
+    });
+  };
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-  
+    
     return (
       <Appointment
-        key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
-        interviewers={interviewers}
+      key={appointment.id}
+      id={appointment.id}
+      time={appointment.time}
+      interview={interview}
+      interviewers={interviewers}
+      bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
       />
     );
   });  
