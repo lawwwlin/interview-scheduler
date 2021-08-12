@@ -11,7 +11,7 @@ function InterviewerList(props) {
       avatar={interviewer.avatar}
       key={interviewer.id}
       selected={interviewer.id === props.value}
-      setInterviewer={(event) => props.onChange(interviewer.id)}
+      setInterviewer={() => props.onChange(interviewer.id)}
     />
   });
 
@@ -23,6 +23,7 @@ function InterviewerList(props) {
   );
 }
 
+// make sure interviewers prop is an array
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
 };

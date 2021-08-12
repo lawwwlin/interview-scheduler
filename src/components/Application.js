@@ -1,5 +1,4 @@
 import React from "react";
-
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
@@ -7,6 +6,7 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../h
 import useApplicationData from "hooks/userApplicationData";
 
 export default function Application(props) {
+  // get hooks from helper
   const {
     state,
     setDay,
@@ -18,6 +18,7 @@ export default function Application(props) {
 
   const appointments = getAppointmentsForDay(state, state.day);
   
+  // set up appopintment from list of appointments
   const appointmentList = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     

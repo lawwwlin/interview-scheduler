@@ -10,6 +10,7 @@ export default function DayListItem(props) {
     'day-list__item--full': props.spots === 0
   });
 
+  // show different messages for remaining spots
   const formatSpots = function(spots) {
     if (spots === 0) {
       return 'no spots remaining';
@@ -19,7 +20,6 @@ export default function DayListItem(props) {
     }
     return `${spots} spots remaining`;
   };
-
 
   return (
     <li data-testid="day"

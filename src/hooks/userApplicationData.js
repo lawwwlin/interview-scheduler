@@ -8,6 +8,7 @@ export default function useApplicationData() {
     appointments: {}
   });
 
+  // apis
   useEffect(() => {
     Promise.all([
       axios.get('api/days'),
@@ -20,6 +21,7 @@ export default function useApplicationData() {
 
   const setDay = day => setState({ ...state, day });
 
+  // return state with updated remaining spots
   const updateSpots = (state, day) => {
     const currentDay = day || state.day;
     const currentDayObj = state.days.find(obj => obj.name === currentDay);
@@ -51,6 +53,7 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
+        // first set the state for appointments, and then update the remaining spots
         setState(prev => ({...prev, appointments}))
         setState(prev => updateSpots({...prev, appointments}));
     });
