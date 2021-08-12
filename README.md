@@ -21,3 +21,13 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Screenshots
+
+!["Scheduler front page"](https://github.com/lawwwlin/scheduler/blob/master/docs/front-page.png)
+
+!["Add new appointment form"](https://github.com/lawwwlin/scheduler/blob/master/docs/appointment-form.png)
+
+!["Saving appointment"](https://github.com/lawwwlin/scheduler/blob/master/docs/appointment-saving.png)
+
+!["Deleting appointment"](https://github.com/lawwwlin/scheduler/blob/master/docs/appointment-delete.png)
