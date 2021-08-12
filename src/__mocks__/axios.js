@@ -83,9 +83,17 @@ export default {
     }
   }),
 
-  // just need to provide url for the first appointment spot
   put: jest.fn(url => {
+    // url for adding appointment to the first empty appointment spot
     if (url === `/api/appointments/1`) {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
+    }
+
+    // url for editing appointment of the second appointment spot
+    if (url === `/api/appointments/2`) {
       return Promise.resolve({
         status: 204,
         statusText: "No Content"
@@ -93,9 +101,9 @@ export default {
     }
   }),
 
-  // just need to provide url for the first appointment spot
+  // url for deleting the second appointment spot
   delete: jest.fn(url => {
-    if (url === `/api/appointments/1`) {
+    if (url === `/api/appointments/2`) {
       return Promise.resolve({
         status: 204,
         statusText: "No Content"
