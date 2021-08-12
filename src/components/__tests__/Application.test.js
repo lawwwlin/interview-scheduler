@@ -1,6 +1,7 @@
 import React from "react";
 import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, getByTestId } from "@testing-library/react";
 import Application from "components/Application";
+import axios from "axios";
 
 afterEach(cleanup);
 
@@ -80,7 +81,6 @@ describe("Application", () => {
     // Click the "Save" button
     fireEvent.click(getByText(appointment, "Save"));
 
-
     // Check that the element with the text "Saving" is displayed.
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
     // Wait until the element with the text "Archie Cohen" is displayed.
@@ -90,5 +90,13 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+  });
+
+  it("shows the save error when failing to save an appointment", () => {
+    axios.put.mockRejectedValueOnce();
+  });
+
+  it("shows the delete error when failing to delete an existing appointment", () => {
+    axios.delete.mockRejectedValueOnce();
   });
 });
