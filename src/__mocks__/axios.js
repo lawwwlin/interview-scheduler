@@ -81,5 +81,25 @@ export default {
         data: fixtures.interviewers
       });
     }
+  }),
+
+  // just need to provide url for the first appointment spot
+  put: jest.fn(url => {
+    if (url === `/api/appointments/1`) {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
+    }
+  }),
+
+  // just need to provide url for the first appointment spot
+  delete: jest.fn(url => {
+    if (url === `/api/appointments/1`) {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
+    }
   })
 };
