@@ -6,9 +6,9 @@ Install dependencies with `npm install`.
 
 ## Database Server
 
-https://github.com/lawwwlin/scheduler-api\
+https://github.com/lawwwlin/scheduler-api \
 Database forked from Lighthouse Labs Github\
-Follow README for setup.\
+Follow README for setup. \
 
 ## Running Webpack Development Server
 
