@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+A single page application that allows users to schedule appointments. Users can create, edit and cancel interviews. 
+
 ## Setup
 
 Install dependencies with `npm install`.
